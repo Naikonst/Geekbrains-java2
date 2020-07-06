@@ -14,11 +14,12 @@ public class Application {
 
 
         for (String key : map.keySet()) {
-            System.out.println(key + " " + map.get(key));
+//            System.out.println(key + " " + map.get(key));
         }
 
 
-        System.out.println(map);
+//        System.out.println(map);
+        setExample();
     }
 
     private static void setExample() {
@@ -38,12 +39,14 @@ public class Application {
         set.add(box5);
         System.out.println(set);
 
-        TreeSet<String> setStr = new TreeSet<>();
+        HashSet<String> setStr = new HashSet<>();
         setStr.add("Jan");
         setStr.add("Feb");
         setStr.add("Mar");
         setStr.add("Apr");
+        setStr.add("Jan");
         System.out.println(setStr);
+
     }
 
     private static void arrListExample() {
