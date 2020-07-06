@@ -12,18 +12,12 @@ public class Box implements Comparable<Box>{
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Box box = (Box) o;
-        return length == box.length && height == box.height;
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = length;
-        result = 31 * result + height;
-        return result;
+        return 1;
     }
 
     @Override
