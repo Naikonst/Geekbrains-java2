@@ -44,6 +44,7 @@ public class Phonebook {
 
         return persons
                 .stream()
+                //.map(person -> person.getEmail())
                 .map(Person::getEmail)
                 .collect(Collectors.toList());
     }
