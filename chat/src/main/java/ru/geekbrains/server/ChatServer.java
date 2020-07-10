@@ -2,13 +2,41 @@ package ru.geekbrains.server;
 
 public class ChatServer {
 
-    public void start(int port) {
+    private static ServerSocketThread serverSocketThread;
 
-        System.out.println("Server started on port: " + port);
+    public void start(int port) {
+        if (serverSocketThread != null && serverSocketThread.isAlive()) {
+            return;
+        }
+        serverSocketThread = new ServerSocketThread("Chat-Server-Socket-Thread", port);
+        serverSocketThread.start();
     }
 
     public void stop() {
-        System.out.println("Server stopped");
+        if (serverSocketThread == null || !serverSocketThread.isAlive()) {
+            return;
+        }
+        serverSocketThread.interrupt();
     }
 
+
+    /*public static void main(String[] args) {
+        serverSocketThread = new ServerSocketThread();
+        serverSocketThread.start();
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(Thread.currentThread().getName() + ": running");
+            }
+        });
+       t.start();
+        try {
+            Thread.currentThread().sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        serverSocketThread.interrupt();
+        System.out.println(Thread.currentThread().getName() + ": Main");
+    }*/
 }

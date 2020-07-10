@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class ClientGUI extends JFrame implements ActionListener, Thread.UncaughtExceptionHandler {
 
@@ -25,8 +30,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
     private final JButton buttonSend = new JButton("Send");
 
     private final JList<String> listUsers = new JList<>();
-
-
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -36,7 +40,6 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
             }
         });
     }
-
 
     ClientGUI() {
         Thread.setDefaultUncaughtExceptionHandler(this);
@@ -71,6 +74,8 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         add(panelBottom, BorderLayout.SOUTH);
 
         cbAlwaysOnTop.addActionListener(this);
+        buttonSend.addActionListener(this);
+        messageField.addActionListener(this);
 
         setVisible(true);
     }
@@ -81,6 +86,8 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         Object src = e.getSource();
         if (src == cbAlwaysOnTop) {
             setAlwaysOnTop(cbAlwaysOnTop.isSelected());
+        } else if (src == buttonSend || src == messageField) {
+            sendMessage(loginField.getText(), messageField.getText());
         } else {
             throw new RuntimeException("Unsupported action: " + src);
         }
@@ -92,6 +99,30 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         StackTraceElement[] ste = e.getStackTrace();
         String msg = String.format("Exception in \"%s\": %s %s%n\t %s",
                 t.getName(), e.getClass().getCanonicalName(), e.getMessage(), ste[0]);
-        JOptionPane.showMessageDialog(this, msg, "Exception!", JOptionPane.ERROR_MESSAGE);
+        showError(msg);
+    }
+
+    public void sendMessage(String user, String msg) {
+        if (msg.isEmpty()) {
+            return;
+        }
+        //23.06.2020 12:20:25 <Login>: сообщение
+        String messageToChat = String.format("%s <%s>: %s%n", sdf.format(Calendar.getInstance().getTime()), user, msg);
+        chatArea.append(messageToChat);
+        messageField.setText("");
+        messageField.grabFocus();
+        putIntoFileHistory(user, messageToChat);
+    }
+
+    private void putIntoFileHistory(String user, String msg) {
+        try (PrintWriter pw = new PrintWriter(new FileOutputStream(user + "-history.txt", true))) {
+            pw.print(msg);
+        } catch (FileNotFoundException e) {
+            showError(msg);
+        }
+    }
+
+    private void showError(String errorMsg) {
+        JOptionPane.showMessageDialog(this, errorMsg, "Exception!", JOptionPane.ERROR_MESSAGE);
     }
 }
