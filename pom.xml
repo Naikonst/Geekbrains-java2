@@ -20,6 +20,8 @@
         <module>lesson3</module>
         <module>lesson4</module>
         <module>chat</module>
+        <module>lesson6</module>
+        <module>chat-client</module>
     </modules>
 
 </project>
