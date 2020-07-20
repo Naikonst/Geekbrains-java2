@@ -1,17 +1,19 @@
 package ru.geekbrains.core;
 
 import ru.geekbrains.chat.common.MessageLibrary;
+import ru.geekbrains.net.MessageSocketThread;
 import ru.geekbrains.net.MessageSocketThreadListener;
 import ru.geekbrains.net.ServerSocketThread;
 import ru.geekbrains.net.ServerSocketThreadListener;
 
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Vector;
 
 public class ChatServer implements ServerSocketThreadListener, MessageSocketThreadListener {
 
     private ServerSocketThread serverSocketThread;
-    private ClientSessionThread clientSession;
     private ChatServerListener listener;
     private AuthController authController;
     private Vector<ClientSessionThread> clients = new Vector<>();
@@ -35,7 +37,12 @@ public class ChatServer implements ServerSocketThreadListener, MessageSocketThre
             return;
         }
         serverSocketThread.interrupt();
+        disconnectAll();
     }
+
+    /*
+     * Server Socket Thread Listener Methods
+     */
 
     @Override
     public void onClientConnected() {
@@ -44,7 +51,7 @@ public class ChatServer implements ServerSocketThreadListener, MessageSocketThre
 
     @Override
     public void onSocketAccepted(Socket socket) {
-        this.clientSession = new ClientSessionThread(this, "ClientSessionThread", socket);
+        clients.add(new ClientSessionThread(this, "ClientSessionThread", socket));
     }
 
     @Override
@@ -52,38 +59,65 @@ public class ChatServer implements ServerSocketThreadListener, MessageSocketThre
         throwable.printStackTrace();
     }
 
+    /*
+     * Message Socket Thread Listener Methods
+     */
+
     @Override
     public void onClientTimeout(Throwable throwable) {
-
     }
 
     @Override
-    public void onSocketReady() {
+    public void onSocketReady(MessageSocketThread thread) {
         logMessage("Socket ready");
     }
 
     @Override
-    public void onSocketClosed() {
+    public void onSocketClosed(MessageSocketThread thread) {
+        ClientSessionThread clientSession = (ClientSessionThread) thread;
         logMessage("Socket Closed");
+        clients.remove(thread);
+        if (clientSession.isAuthorized() && !clientSession.isReconnected()) {
+            sendToAllAuthorizedClients(MessageLibrary.getBroadcastMessage("server", "User " + clientSession.getNickname() + " disconnected"));
+        }
+        sendToAllAuthorizedClients(MessageLibrary.getUserList(getUsersList()));
     }
 
     @Override
-    public void onMessageReceived(String msg) {
+    public void onMessageReceived(MessageSocketThread thread, String msg) {
+        ClientSessionThread clientSession = (ClientSessionThread)thread;
         if (clientSession.isAuthorized()) {
             processAuthorizedUserMessage(msg);
         } else {
-            processUnauthorizedUserMessage(msg);
+            processUnauthorizedUserMessage(clientSession, msg);
         }
+    }
 
-
+    @Override
+    public void onException(MessageSocketThread thread, Throwable throwable) {
+        throwable.printStackTrace();
     }
 
     private void processAuthorizedUserMessage(String msg) {
         logMessage(msg);
-        clientSession.sendMessage("echo: " + msg);
+        for (ClientSessionThread client : clients) {
+            if (!client.isAuthorized()) {
+                continue;
+            }
+            client.sendMessage(msg);
+        }
     }
 
-    private void processUnauthorizedUserMessage(String msg) {
+    private void sendToAllAuthorizedClients(String msg) {
+        for (ClientSessionThread client : clients) {
+            if(!client.isAuthorized()) {
+                continue;
+            }
+            client.sendMessage(msg);
+        }
+    }
+
+    private void processUnauthorizedUserMessage(ClientSessionThread clientSession, String msg) {
         String[] arr = msg.split(MessageLibrary.DELIMITER);
         if (arr.length < 4 ||
                 !arr[0].equals(MessageLibrary.AUTH_METHOD) ||
@@ -97,14 +131,52 @@ public class ChatServer implements ServerSocketThreadListener, MessageSocketThre
         if (nickname == null) {
             clientSession.authDeny();
             return;
+        } else {
+            ClientSessionThread oldClientSession = findClientSessionByNickname(nickname);
+            clientSession.authAccept(nickname);
+            if (oldClientSession == null) {
+                sendToAllAuthorizedClients(MessageLibrary.getBroadcastMessage("Server", nickname + " connected"));
+            } else {
+                oldClientSession.setReconnected(true);
+                clients.remove(oldClientSession);
+            }
         }
-        clientSession.authAccept(nickname);
+        sendToAllAuthorizedClients(MessageLibrary.getUserList(getUsersList()));
      }
 
     public void disconnectAll() {
+        ArrayList<ClientSessionThread> currentClients = new ArrayList<>(clients);
+        for (ClientSessionThread client : currentClients) {
+            client.close();
+            clients.remove(client);
+        }
+
     }
 
     private void logMessage(String msg) {
         listener.onChatServerMessage(msg);
+    }
+
+    public String getUsersList() {
+        StringBuilder sb = new StringBuilder();
+        for (ClientSessionThread client : clients) {
+            if (!client.isAuthorized()) {
+                continue;
+            }
+            sb.append(client.getNickname()).append(MessageLibrary.DELIMITER);
+        }
+        return sb.toString();
+    }
+
+    private ClientSessionThread findClientSessionByNickname(String nickname) {
+        for (ClientSessionThread client : clients) {
+            if (!client.isAuthorized()) {
+                continue;
+            }
+            if (client.getNickname().equals(nickname)) {
+                return client;
+            }
+        }
+        return null;
     }
 }

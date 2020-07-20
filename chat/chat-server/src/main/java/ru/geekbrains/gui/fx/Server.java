@@ -16,7 +16,7 @@ public class Server extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("server.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("server.fxml"));
         primaryStage.setTitle("Chat server Admin Console");
         primaryStage.setScene(new Scene(root, 600, 300));
         primaryStage.setAlwaysOnTop(true);
