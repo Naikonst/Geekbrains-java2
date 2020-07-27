@@ -1,5 +1,15 @@
 #Курс Java3 
 
+```
+Geekbrains-java2
+│
+└── stage-1 - 1 Курс Java
+│
+└── stage-2 - 2 Курс Java
+│
+└── stage-3 - 3 Курс Java
+```
+
 ## Урок 1. Обобщения (Generics)
 
 Пакет с кодом по уроку: src/generics.
