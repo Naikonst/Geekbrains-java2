@@ -86,3 +86,19 @@ lesson4-multithreading
 └── p12_executor_service - пример реализации ExecutorService
 
 ```
+
+## Урок 5. Многопоточность. Часть 2
+
+```
+lesson5-multithreading2
+│
+└── AtomicCounter - пример реализация счетчика на Atomic-переменных (для поддержки атомарных операций)
+│
+└── CyclicExample - пример использования CyclicBarrier
+│
+└── ProdConsExample - пример использование очереди ArrayBlockingQueue - задача производителя/потребителя
+│
+└── SimpleCDL - пример использования защелки CountDownLatch
+│   │
+└── SimpleSemaphore - пример использования семафора Semaphore
+```
