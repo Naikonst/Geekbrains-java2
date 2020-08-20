@@ -1,0 +1,38 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="
+                    http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd"
+>
+    <changeSet author="java" id="create_tables">
+        <createTable tableName="airport">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="pk_airport"/>
+            </column>
+            <column name="code" type="VARCHAR(5)"/>
+            <column name="city" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+
+        <createTable tableName="airplane">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="pk_airplain"/>
+            </column>
+            <column name="brand" type="VARCHAR(255)"/>
+            <column name="model" type="VARCHAR(255)"/>
+            <column name="number" type="VARCHAR(255)"/>
+        </createTable>
+
+        <createTable tableName="route">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="pk_route"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="departure_airport_id" type="BIGINT"/>
+            <column name="arrival_airport_id" type="BIGINT"/>
+            <column name="airplane_id" type="BIGINT"/>
+            <column name="day_of_week" type="SMALLINT"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

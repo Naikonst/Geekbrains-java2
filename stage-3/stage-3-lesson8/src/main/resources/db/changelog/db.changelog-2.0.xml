@@ -1,0 +1,443 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="
+                    http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd"
+>
+
+    <changeSet author="java" id="1">
+        <insert tableName="airport">
+            <column name="id">1</column>
+            <column name="code">SVO</column>
+            <column name="city">Москва</column>
+            <column name="name">Шереметьево</column>
+        </insert>
+        <insert tableName="airport">
+            <column name="id">2</column>
+            <column name="code">VKO</column>
+            <column name="city">Москва</column>
+            <column name="name">Внуково</column>
+        </insert>
+        <insert tableName="airport">
+            <column name="id">3</column>
+            <column name="code">DME</column>
+            <column name="city">Москва</column>
+            <column name="name">Домодедово</column>
+        </insert>
+        <insert tableName="airport">
+            <column name="id">4</column>
+            <column name="code">LED</column>
+            <column name="city">Санкт-Петербург</column>
+            <column name="name">Пулково</column>
+        </insert>
+        <insert tableName="airport">
+            <column name="id">5</column>
+            <column name="code">SIP</column>
+            <column name="city">Симферополь</column>
+            <column name="name">Симферополь</column>
+        </insert>
+    </changeSet>
+    <changeSet author="java" id="2">
+        <insert tableName="airplane">
+            <column name="id">1</column>
+            <column name="brand">Boeing</column>
+            <column name="model">747-400</column>
+            <column name="number">RA-00001</column>
+        </insert>
+        <insert tableName="airplane">
+            <column name="id">2</column>
+            <column name="brand">Boeing</column>
+            <column name="model">747-400</column>
+            <column name="number">RA-00002</column>
+        </insert>
+        <insert tableName="airplane">
+            <column name="id">3</column>
+            <column name="brand">Boeing</column>
+            <column name="model">747-400</column>
+            <column name="number">RA-00003</column>
+        </insert>
+        <insert tableName="airplane">
+            <column name="id">4</column>
+            <column name="brand">Boeing</column>
+            <column name="model">747-400</column>
+            <column name="number">RA-00004</column>
+        </insert>
+        <insert tableName="airplane">
+            <column name="id">5</column>
+            <column name="brand">Airbus</column>
+            <column name="model">A380-800</column>
+            <column name="number">RA-00005</column>
+        </insert>
+    </changeSet>
+    <changeSet author="java" id="3">
+        <insert tableName="route">
+            <column name="id">1</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">1</column>
+            <column name="arrival_airport_id">4</column>
+            <column name="airplane_id">1</column>
+            <column name="day_of_week">1</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">2</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">1</column>
+            <column name="arrival_airport_id">4</column>
+            <column name="airplane_id">1</column>
+            <column name="day_of_week">2</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">3</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">1</column>
+            <column name="arrival_airport_id">4</column>
+            <column name="airplane_id">1</column>
+            <column name="day_of_week">3</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">4</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">1</column>
+            <column name="arrival_airport_id">4</column>
+            <column name="airplane_id">1</column>
+            <column name="day_of_week">4</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">5</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">1</column>
+            <column name="arrival_airport_id">4</column>
+            <column name="airplane_id">1</column>
+            <column name="day_of_week">5</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">6</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">1</column>
+            <column name="arrival_airport_id">4</column>
+            <column name="airplane_id">1</column>
+            <column name="day_of_week">6</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">7</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">1</column>
+            <column name="arrival_airport_id">4</column>
+            <column name="airplane_id">1</column>
+            <column name="day_of_week">7</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">8</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">1</column>
+            <column name="arrival_airport_id">4</column>
+            <column name="airplane_id">2</column>
+            <column name="day_of_week">1</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">9</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">1</column>
+            <column name="arrival_airport_id">4</column>
+            <column name="airplane_id">2</column>
+            <column name="day_of_week">2</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">10</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">1</column>
+            <column name="arrival_airport_id">4</column>
+            <column name="airplane_id">2</column>
+            <column name="day_of_week">3</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">11</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">1</column>
+            <column name="arrival_airport_id">4</column>
+            <column name="airplane_id">2</column>
+            <column name="day_of_week">4</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">12</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">1</column>
+            <column name="arrival_airport_id">4</column>
+            <column name="airplane_id">2</column>
+            <column name="day_of_week">5</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">13</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">1</column>
+            <column name="arrival_airport_id">4</column>
+            <column name="airplane_id">2</column>
+            <column name="day_of_week">6</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">14</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">1</column>
+            <column name="arrival_airport_id">4</column>
+            <column name="airplane_id">2</column>
+            <column name="day_of_week">7</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">15</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">4</column>
+            <column name="arrival_airport_id">1</column>
+            <column name="airplane_id">1</column>
+            <column name="day_of_week">1</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">16</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">4</column>
+            <column name="arrival_airport_id">1</column>
+            <column name="airplane_id">1</column>
+            <column name="day_of_week">2</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">17</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">4</column>
+            <column name="arrival_airport_id">1</column>
+            <column name="airplane_id">1</column>
+            <column name="day_of_week">3</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">18</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">4</column>
+            <column name="arrival_airport_id">1</column>
+            <column name="airplane_id">1</column>
+            <column name="day_of_week">4</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">19</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">4</column>
+            <column name="arrival_airport_id">1</column>
+            <column name="airplane_id">1</column>
+            <column name="day_of_week">5</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">20</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">4</column>
+            <column name="arrival_airport_id">1</column>
+            <column name="airplane_id">1</column>
+            <column name="day_of_week">6</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">21</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">4</column>
+            <column name="arrival_airport_id">1</column>
+            <column name="airplane_id">1</column>
+            <column name="day_of_week">7</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">22</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">4</column>
+            <column name="arrival_airport_id">1</column>
+            <column name="airplane_id">2</column>
+            <column name="day_of_week">1</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">23</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">4</column>
+            <column name="arrival_airport_id">1</column>
+            <column name="airplane_id">2</column>
+            <column name="day_of_week">2</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">24</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">4</column>
+            <column name="arrival_airport_id">1</column>
+            <column name="airplane_id">2</column>
+            <column name="day_of_week">3</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">25</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">4</column>
+            <column name="arrival_airport_id">1</column>
+            <column name="airplane_id">2</column>
+            <column name="day_of_week">4</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">26</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">4</column>
+            <column name="arrival_airport_id">1</column>
+            <column name="airplane_id">2</column>
+            <column name="day_of_week">5</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">27</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">4</column>
+            <column name="arrival_airport_id">1</column>
+            <column name="airplane_id">2</column>
+            <column name="day_of_week">6</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">28</column>
+            <column name="code">M1</column>
+            <column name="departure_airport_id">4</column>
+            <column name="arrival_airport_id">1</column>
+            <column name="airplane_id">2</column>
+            <column name="day_of_week">7</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">29</column>
+            <column name="code">M2</column>
+            <column name="departure_airport_id">2</column>
+            <column name="arrival_airport_id">5</column>
+            <column name="airplane_id">3</column>
+            <column name="day_of_week">1</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">30</column>
+            <column name="code">M2</column>
+            <column name="departure_airport_id">2</column>
+            <column name="arrival_airport_id">5</column>
+            <column name="airplane_id">3</column>
+            <column name="day_of_week">2</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">31</column>
+            <column name="code">M2</column>
+            <column name="departure_airport_id">2</column>
+            <column name="arrival_airport_id">5</column>
+            <column name="airplane_id">3</column>
+            <column name="day_of_week">3</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">32</column>
+            <column name="code">M2</column>
+            <column name="departure_airport_id">2</column>
+            <column name="arrival_airport_id">5</column>
+            <column name="airplane_id">3</column>
+            <column name="day_of_week">4</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">33</column>
+            <column name="code">M2</column>
+            <column name="departure_airport_id">2</column>
+            <column name="arrival_airport_id">5</column>
+            <column name="airplane_id">3</column>
+            <column name="day_of_week">5</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">34</column>
+            <column name="code">M2</column>
+            <column name="departure_airport_id">2</column>
+            <column name="arrival_airport_id">5</column>
+            <column name="airplane_id">3</column>
+            <column name="day_of_week">6</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">35</column>
+            <column name="code">M2</column>
+            <column name="departure_airport_id">2</column>
+            <column name="arrival_airport_id">5</column>
+            <column name="airplane_id">3</column>
+            <column name="day_of_week">7</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">36</column>
+            <column name="code">M2</column>
+            <column name="departure_airport_id">5</column>
+            <column name="arrival_airport_id">2</column>
+            <column name="airplane_id">3</column>
+            <column name="day_of_week">1</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">37</column>
+            <column name="code">M2</column>
+            <column name="departure_airport_id">5</column>
+            <column name="arrival_airport_id">2</column>
+            <column name="airplane_id">3</column>
+            <column name="day_of_week">2</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">38</column>
+            <column name="code">M2</column>
+            <column name="departure_airport_id">5</column>
+            <column name="arrival_airport_id">2</column>
+            <column name="airplane_id">3</column>
+            <column name="day_of_week">3</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">39</column>
+            <column name="code">M2</column>
+            <column name="departure_airport_id">5</column>
+            <column name="arrival_airport_id">2</column>
+            <column name="airplane_id">3</column>
+            <column name="day_of_week">4</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">40</column>
+            <column name="code">M2</column>
+            <column name="departure_airport_id">5</column>
+            <column name="arrival_airport_id">2</column>
+            <column name="airplane_id">3</column>
+            <column name="day_of_week">5</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">41</column>
+            <column name="code">M2</column>
+            <column name="departure_airport_id">5</column>
+            <column name="arrival_airport_id">2</column>
+            <column name="airplane_id">3</column>
+            <column name="day_of_week">6</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">42</column>
+            <column name="code">M2</column>
+            <column name="departure_airport_id">5</column>
+            <column name="arrival_airport_id">2</column>
+            <column name="airplane_id">3</column>
+            <column name="day_of_week">7</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">43</column>
+            <column name="code">M3</column>
+            <column name="departure_airport_id">4</column>
+            <column name="arrival_airport_id">3</column>
+            <column name="airplane_id">4</column>
+            <column name="day_of_week">6</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">44</column>
+            <column name="code">M3</column>
+            <column name="departure_airport_id">3</column>
+            <column name="arrival_airport_id">5</column>
+            <column name="airplane_id">5</column>
+            <column name="day_of_week">6</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">45</column>
+            <column name="code">M3</column>
+            <column name="departure_airport_id">5</column>
+            <column name="arrival_airport_id">3</column>
+            <column name="airplane_id">5</column>
+            <column name="day_of_week">7</column>
+        </insert>
+        <insert tableName="route">
+            <column name="id">46</column>
+            <column name="code">M3</column>
+            <column name="departure_airport_id">3</column>
+            <column name="arrival_airport_id">4</column>
+            <column name="airplane_id">4</column>
+            <column name="day_of_week">7</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
